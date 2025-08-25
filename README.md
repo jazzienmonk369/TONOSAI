@@ -1,3 +1,4 @@
+docs: add demo gifs to README
 <p align="center">
   <a href="https://python.org"><img alt="Python" src="https://img.shields.io/badge/Python-3.10%2B-blue.svg"></a>
   <a href="LICENSE.md"><img alt="License" src="https://img.shields.io/badge/License-MIT-green.svg"></a>
@@ -8,11 +9,14 @@
 ![Kosmičke Zvezde — screenshot](docs/screen_stars.png)
 
 ## 🎮 Demo
-**Collector**  
-![Collector demo](docs/demo_collector.gif)
 
-**Guardian**  
-![Guardian demo](docs/demo_guardian.gif)
+- [Collector demo](docs/demo_collector.gif)
++ ![Collector demo](docs/demo_collector.gif)
+
+- [Guardian demo](docs/demo_guardian.gif)
++ ![Guardian demo](docs/demo_guardian.gif)
+
+
 
 # 🎵 TONOSAI – AI Improvizator
 
