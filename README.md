@@ -8,13 +8,14 @@ docs: add demo gifs to README
 ## 📸 Screenshots
 ![Kosmičke Zvezde — screenshot](docs/screen_stars.png)
 
-## 🎮 Demo
+## 🎬 Demo
 
-- [Collector demo](docs/demo_collector.gif)
-+ ![Collector demo](docs/demo_collector.gif)
+**Collector**  
+![Collector demo](docs/demo_collector.gif)
 
-- [Guardian demo](docs/demo_guardian.gif)
-+ ![Guardian demo](docs/demo_guardian.gif)
+**Guardian**  
+![Guardian demo](docs/demo_guardian.gif)
+
 
 
 
