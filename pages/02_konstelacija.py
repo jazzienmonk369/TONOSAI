@@ -1,4 +1,12 @@
 import streamlit as st
+
+st.set_page_config(
+    page_title="TONOSAI — Zvezde",         # slobodno menjaj naslov po stranici
+    page_icon="static/favicon.png",
+    layout="wide"
+)
+
+import streamlit as st
 from pyvis.network import Network
 import streamlit.components.v1 as components
 import os

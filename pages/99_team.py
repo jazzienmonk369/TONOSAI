@@ -1,5 +1,13 @@
 import streamlit as st
 
+st.set_page_config(
+    page_title="TONOSAI — Zvezde",         # slobodno menjaj naslov po stranici
+    page_icon="static/favicon.png",
+    layout="wide"
+)
+
+import streamlit as st
+
 # 🌌 Stranica i stil
 st.set_page_config(page_title="TONOSAI | Kosmički Tim", page_icon="🌌", layout="centered")
 

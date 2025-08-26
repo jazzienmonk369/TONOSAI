@@ -1,3 +1,11 @@
+import streamlit as st
+
+st.set_page_config(
+    page_title="TONOSAI — Zvezde",         # slobodno menjaj naslov po stranici
+    page_icon="static/favicon.png",
+    layout="wide"
+)
+
 # pages/06_guardian.py — TONOSAI | Igra: Čuvar konstelacije
 import streamlit as st
 import streamlit.components.v1 as components

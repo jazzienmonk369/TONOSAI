@@ -1,12 +1,16 @@
 import streamlit as st
+
+st.set_page_config(
+    page_title="TONOSAI Studio",
+    page_icon="static/favicon.png",
+    layout="wide",
+)
+
+import streamlit as st
 import base64
 import os
 
-st.set_page_config(
-    page_title="TONOSAI | Vizija",
-    page_icon="🌌",
-    layout="wide"
-)
+
 
 # 🔊 Učitavanje zvuka
 def encode_audio(path):

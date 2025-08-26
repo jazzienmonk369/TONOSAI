@@ -1,5 +1,13 @@
 import streamlit as st
 
+st.set_page_config(
+    page_title="TONOSAI — Zvezde",         # slobodno menjaj naslov po stranici
+    page_icon="static/favicon.png",
+    layout="wide"
+)
+
+import streamlit as st
+
 st.set_page_config(page_title="TONOSAI • Vila Harmonia Kalkulator", page_icon="🎼", layout="centered")
 
 # 🌟 Naslov i uvod

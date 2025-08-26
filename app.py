@@ -1,5 +1,48 @@
+import streamlit as st
+
+st.set_page_config(
+    page_title="TONOSAI Studio",
+    page_icon="static/favicon.png",
+    layout="wide",
+)
+
+st.subheader("🚀 Brzi start")
+c1, c2, c3 = st.columns(3)
+with c1:
+    st.page_link("pages/01_stars.py", label="⭐ Kosmičke Zvezde", icon="⭐")
+with c2:
+    st.page_link("pages/02_konstalecija.py", label="🔭 Konstelacije", icon="🔭")
+with c3:
+    st.page_link("pages/05_game.py", label="🎮 Igra (Collector)", icon="🎮")
+
+c4, _, _ = st.columns(3)
+with c4:
+    st.page_link("pages/06_guardian.py", label="🛡️ Čuvar (boss + dah HUD)", icon="🛡️")
+
 # app.py — TONOSAI Studio (home)
 import streamlit as st
+import streamlit as st
+
+st.set_page_config(
+    page_title="TONOSAI Studio — kosmičke zvezde & zvuk",
+    page_icon="✨",          # ili "static/favicon.png" kad dodaš sličicu
+    layout="wide",
+    initial_sidebar_state="expanded",
+    menu_items={
+        "Get Help": "https://github.com/jazzienmonk369/TONOSAI/issues",
+        "Report a bug": "https://github.com/jazzienmonk369/TONOSAI/issues/new",
+        "About": "TONOSAI Studio — eksperimenti sa harmonijom, kosmičkim vizualima i healing vibrom.",
+    },
+)
+
+# Sakrij default meni i footer (čistiji izlog)
+st.markdown("""
+<style>
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+</style>
+""", unsafe_allow_html=True)
+
 
 st.set_page_config(page_title="TONOSAI Studio", page_icon="🎛️", layout="wide")
 st.title("🎛️ TONOSAI Studio")
