@@ -59,7 +59,7 @@ st.subheader("🚀 Brzi start")
 c1, c2, c3 = st.columns(3)
 st.page_link("pages/01_stars.py",          label="⭐ Kosmičke Zvezde")
 st.page_link("pages/02_konstelacija.py",   label="🔭 Konstelacije")   # <-- ispravno
-st.page_link("pages/03_kalkulator.py",     label="🧮 Kalkulator")
+st.page_link("pages/03_kalkulator.py", label="💫 Donacije", icon="💫")
 st.page_link("pages/04_ai_improvizator.py",label="🎹 AI Improvizator")
 st.page_link("pages/05_game.py",           label="🎮 Igra (Collector)")
 st.page_link("pages/06_guardian.py",       label="🛡️ Čuvar")
