@@ -1,9 +1,1 @@
-﻿python-3.10
-# .streamlit/config.toml
-
-[theme]
-primaryColor = "#FFD166"            # zlatna/solfeggio vibe
-backgroundColor = "#08132B"         # kosmička tamna
-secondaryBackgroundColor = "#1C2541"
-textColor = "#E0E1DD"
-font = "sans serif"
+﻿3.13
