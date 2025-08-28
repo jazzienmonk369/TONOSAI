@@ -5,19 +5,33 @@ st.set_page_config(
     page_icon="static/favicon.png",
     layout="wide",
 )
+st.markdown(
+    """
+    <style>
+      .topbar {display:flex; gap:1rem; align-items:center; opacity:.9}
+      .topbar a {text-decoration:none; padding:.35rem .6rem; border-radius:.6rem; 
+                 background:#0e1625; border:1px solid #22324d; font-size:.9rem}
+    </style>
+    <div class="topbar">
+      <a href="https://github.com/jazzienmonk369/TONOSAI" target="_blank">⭐ GitHub</a>
+      <a href="#" onclick="navigator.clipboard.writeText(window.location.href); 
+               alert('Link kopiran!'); return false;">🔗 Copy link</a>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
 
 st.subheader("🚀 Brzi start")
 c1, c2, c3 = st.columns(3)
-with c1:
-    st.page_link("pages/01_stars.py", label="⭐ Kosmičke Zvezde", icon="⭐")
-with c2:
-    st.page_link("pages/02_konstalecija.py", label="🔭 Konstelacije", icon="🔭")
-with c3:
-    st.page_link("pages/05_game.py", label="🎮 Igra (Collector)", icon="🎮")
+st.page_link("pages/01_stars.py",          label="⭐ Kosmičke Zvezde")
+st.page_link("pages/02_konstelacija.py",   label="🔭 Konstelacije")   # <-- ispravno
+st.page_link("pages/03_kalkulator.py",     label="🧮 Kalkulator")
+st.page_link("pages/04_ai_improvizator.py",label="🎹 AI Improvizator")
+st.page_link("pages/05_game.py",           label="🎮 Igra (Collector)")
+st.page_link("pages/06_guardian.py",       label="🛡️ Čuvar")
+st.page_link("pages/99_team.py",           label="👥 Tim")
 
-c4, _, _ = st.columns(3)
-with c4:
-    st.page_link("pages/06_guardian.py", label="🛡️ Čuvar (boss + dah HUD)", icon="🛡️")
 
 # app.py — TONOSAI Studio (home)
 import streamlit as st
