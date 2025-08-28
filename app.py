@@ -48,6 +48,24 @@ st.set_page_config(
         "About": "TONOSAI Studio — eksperimenti sa harmonijom, kosmičkim vizualima i healing vibrom.",
     },
 )
+import streamlit as st
+
+with st.expander("ℹ️ About TONOSAI"):
+    st.markdown("""
+**TONOSAI Studio** je eksperimentalni AI sandbox za muziku, kod i harmoniju.
+Fokus je na igri sa zvukom i vizuelnim obrascima: konstelacije, improvizacije, mini alati i prototipovi.
+
+**Moduli:**
+- Kosmičke Zvezde – interaktivno nebo (klik = ton, akordi, snimanje)
+- Konstelacije – preseti, boja/rasipanje/seed (generativna “zvezdana genetika”)
+- AI Improvizator – fraze po skali/tempu, export u WAV
+- Kalkulator – mali muzičko/kognitivni alatić
+- Igra i Guardian – eksperimentalni modovi
+
+**Napomena:** app svira; preporučujemo slušalice i tiši volume.
+**Repo:** https://github.com/jazzienmonk369/TONOSAI
+    """)
+
 
 # Sakrij default meni i footer (čistiji izlog)
 st.markdown("""
