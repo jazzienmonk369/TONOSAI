@@ -1,10 +1,16 @@
 import streamlit as st
+import boot
+
 
 st.set_page_config(
     page_title="TONOSAI — Zvezde",         # slobodno menjaj naslov po stranici
     page_icon="static/favicon.png",
     layout="wide"
 )
+from lib.ui import header_badges, footer
+
+header_badges()
+
 
 # pages/01_stars.py — TONOSAI | Kosmičke Zvezde
 import streamlit as st
@@ -528,3 +534,5 @@ if show_help:
         """,
         unsafe_allow_html=True,
     )
+    footer()
+

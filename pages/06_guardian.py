@@ -1,10 +1,16 @@
 import streamlit as st
+import boot
+
 
 st.set_page_config(
     page_title="TONOSAI — Zvezde",         # slobodno menjaj naslov po stranici
     page_icon="static/favicon.png",
     layout="wide"
 )
+from lib.ui import header_badges, footer
+
+header_badges()
+
 
 # pages/06_guardian.py — TONOSAI | Igra: Čuvar konstelacije
 import streamlit as st
@@ -361,3 +367,5 @@ html = f"""
 
 st.title("✨ TONOSAI — Čuvar konstelacije")
 components.html(html, height=canvas_h + 8, scrolling=False)
+footer()
+

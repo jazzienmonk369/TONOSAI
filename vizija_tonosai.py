@@ -1,10 +1,16 @@
 import streamlit as st
+import boot
+
 
 st.set_page_config(
     page_title="TONOSAI Studio",
     page_icon="static/favicon.png",
     layout="wide",
 )
+from lib.ui import header_badges, footer
+
+header_badges()
+
 
 import streamlit as st
 import base64
@@ -121,3 +127,4 @@ for id_, message in stars:
     st.markdown(f"""
         <img src="data:image/png;base64,{star_img_base64}" class="click-star" id="{id_}" onclick="playClickSoundAndAlert('{message}')">
     """, unsafe_allow_html=True)
+    footer()

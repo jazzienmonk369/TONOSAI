@@ -2,11 +2,17 @@ import random
 import streamlit as st
 from pyvis.network import Network
 import streamlit.components.v1 as components
+import boot
+
 
 # 1) Samo jedan page_config:
 st.set_page_config(page_title="TONOSAI — Konstelacije",
                    page_icon="static/favicon.png",
                    layout="wide")
+from lib.ui import header_badges, footer
+
+header_badges()
+
 
 # ---  PRESETI  ---
 PRESETS = {
@@ -80,3 +86,5 @@ components.html(html, height=540, scrolling=True)
 
 # 2) Nazad na početnu bez slugova/“/”
 st.page_link("app.py", label="← Vrati se na početni meni")
+footer()
+

@@ -1,10 +1,43 @@
 import streamlit as st
+import boot
+
 
 st.set_page_config(
     page_title="TONOSAI Studio",
     page_icon="static/favicon.png",
     layout="wide",
 )
+from lib.ui import header_badges, footer
+
+header_badges()
+
+# --- GitHub badges (fixed, top-right) ---
+st.markdown("""
+<style>
+#tonosai-badges {
+  position: fixed;
+  top: 12px; right: 12px;
+  z-index: 10000;
+}
+#tonosai-badges img { vertical-align: middle; }
+#tonosai-badges a { margin-left: 6px; }
+@media (max-width: 900px) {
+  #tonosai-badges { top: 56px; }  /* malo niže kad je sidebar otvoren/usko */
+}
+</style>
+<div id="tonosai-badges">
+  <a href="https://github.com/jazzienmonk369/TONOSAI" target="_blank" title="Star TONOSAI">
+    <img src="https://img.shields.io/github/stars/jazzienmonk369/TONOSAI?label=Stars&style=social" />
+  </a>
+  <a href="https://github.com/jazzienmonk369/TONOSAI/fork" target="_blank" title="Fork TONOSAI">
+    <img src="https://img.shields.io/github/forks/jazzienmonk369/TONOSAI?label=Forks&style=social" />
+  </a>
+  <a href="https://github.com/jazzienmonk369/TONOSAI/issues" target="_blank" title="Open issues">
+    <img src="https://img.shields.io/github/issues/jazzienmonk369/TONOSAI?label=Issues" />
+  </a>
+</div>
+""", unsafe_allow_html=True)
+
 st.markdown(
     """
     <style>
@@ -152,3 +185,30 @@ st.markdown(
 3. `streamlit run app.py`
 """
 )
+st.markdown("---")
+st.markdown(
+    """
+**📝 Feedback / Report a bug:**  
+- Otvori [GitHub Issue](https://github.com/jazzienmonk369/TONOSAI/issues/new?title=%5Bbug%5D%3A+&body=Kratan+opis+problema...%0A%0AKoraci+za+reprodukciju%3A%0A1.%0A2.%0A3.%0A%0AOcekivano+ponasanje%3A%0A%0AOkruzenje%3A+Browser+%2F+OS%3F%0A)  
+- Ili pošalji mail: <a href="mailto:jazzienmonk369@gmail.com">jazzienmonk369@gmail.com</a>
+    """,
+    unsafe_allow_html=True,
+)
+st.markdown("""
+<style>
+/* blagi kosmički gradient */
+div[data-testid="stAppViewContainer"]{
+  background: radial-gradient(1200px 600px at 18% 10%, #0f1c2e 0%, #0a1526 40%, #071021 100%) fixed;
+}
+/* dugmići malo mekši */
+.stButton>button, .stDownloadButton>button{
+  border-radius:12px; padding:.5rem 1rem;
+}
+/* slider akcenat */
+[data-baseweb="slider"] [role="slider"]{ background-color:#FFD773 !important; }
+</style>
+""", unsafe_allow_html=True)
+
+footer()
+
+

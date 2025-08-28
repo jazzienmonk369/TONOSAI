@@ -1,16 +1,34 @@
-import streamlit as st
+# pages/04_ai_improvizator.py
+import io, wave, random, math
 import numpy as np
-import io, wave, random
+import streamlit as st
 import boot
 
 
-st.set_page_config(page_title="TONOSAI — AI Improvizator",
-                   page_icon="static/favicon.png",
-                   layout="wide")
+# ── Page & theme ───────────────────────────────────────────────────────────────
+st.set_page_config(
+    page_title="TONOSAI — AI Improvizator",
+    page_icon="static/favicon.png",
+    layout="wide",
+)
 from lib.ui import header_badges, footer
 
 header_badges()
 
+
+# Kosmički CSS (isti kao na home-u)
+st.markdown("""
+<style>
+[data-testid="stAppViewContainer"]{
+  background: radial-gradient(1200px 600px at 15% -10%, #10163c 0%, #0a0f2a 45%, #070b1f 100%);
+}
+section[data-testid="stSidebar"] > div:first-child{
+  background:#0b1030; border-right:1px solid #273056;
+}
+h1,h2,h3,h4 { color:#E6E8FF !important; }
+a { color:#77a0ff !important; }
+</style>
+""", unsafe_allow_html=True)
 
 st.title("🎹 AI Improvizator")
 
@@ -72,6 +90,10 @@ def notes_to_wav(notes, sr: int = 44100) -> io.BytesIO:
     buf.seek(0)
     return buf
 
+
+
+
+
 # ── UI ─────────────────────────────────────────────────────────────────────────
 col1, col2, col3, col4, col5 = st.columns(5)
 key_name   = col1.selectbox("🎼 Tonalitet", KEYS, index=KEYS.index("C"))
@@ -83,22 +105,30 @@ seed       = col5.number_input("🔢 Seed", 1, 9999, 42)
 dur_choice = st.radio("Trajanje nota", ["osmine", "četvrtine", "mešano"], horizontal=True)
 generate   = st.button("🎛 Generiši frazu", use_container_width=True)
 
+# ── Generisanje fraze ─────────────────────────────────────────────────────────
 if generate:
     random.seed(int(seed))
 
     base_midi   = key_to_midi(key_name, octave=4)
     scale_ints  = SCALES[scale_name]
-    beat        = 60.0 / bpm
-    possible_durs = [0.5*beat] if dur_choice=="osmine" else [1.0*beat] if dur_choice=="četvrtine" else [0.5*beat, 1.0*beat]
+
+    beat = 60.0 / bpm
+    if dur_choice == "osmine":
+        possible_durs = [0.5 * beat]
+    elif dur_choice == "četvrtine":
+        possible_durs = [1.0 * beat]
+    else:
+        possible_durs = [0.5 * beat, 1.0 * beat]
 
     degree = 0
-    notes = []
+    notes  = []
     for _ in range(steps):
-        degree += random.choice([-2,-1,0,1,2])
-        degree = max(min(degree, 12), -12)
+        degree += random.choice([-2, -1, 0, 1, 2])
+        degree  = max(min(degree, 12), -12)
+
         octave_shift = degree // len(scale_ints)
-        scale_degree = degree % len(scale_ints)
-        midi = base_midi + scale_ints[scale_degree] + 12*octave_shift
+        scale_degree = degree %  len(scale_ints)
+        midi = base_midi + scale_ints[scale_degree] + 12 * octave_shift
         freq = midi_to_freq(midi)
         dur  = random.choice(possible_durs)
         notes.append((freq, dur))
@@ -108,7 +138,9 @@ if generate:
     st.download_button("⬇️ Preuzmi WAV", wav_buf, file_name="improv.wav", mime="audio/wav")
 
     with st.expander("🎵 Pregled (prvih 12)"):
-        preview = [f"{key_name} {scale_name} – f={f:.1f}Hz, d={d:.2f}s" for f,d in notes[:12]]
+        preview = [f"{key_name} {scale_name} – f={f:.1f}Hz, d={d:.2f}s" for f, d in notes[:12]]
         st.write("\n".join(preview))
-        footer()
+
+st.page_link("app.py", label="← Vrati se na početni meni")
+footer()
 

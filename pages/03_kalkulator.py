@@ -1,10 +1,16 @@
 import streamlit as st
+import boot
+
 
 st.set_page_config(
     page_title="TONOSAI — Zvezde",         # slobodno menjaj naslov po stranici
     page_icon="static/favicon.png",
     layout="wide"
 )
+from lib.ui import header_badges, footer
+
+header_badges()
+
 
 import streamlit as st
 
@@ -53,3 +59,4 @@ else:
 # 🎇 Zaključak
 st.markdown("---")
 st.caption("TONOSAI Studio • Spoj AI-ja, zvuka i umetnosti. Uvek vođeni Harmonijom. 🌌🎶")
+footer()
