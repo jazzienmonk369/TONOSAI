@@ -77,6 +77,22 @@ footer {visibility: hidden;}
 
 
 st.set_page_config(page_title="TONOSAI Studio", page_icon="🎛️", layout="wide")
+# --- GitHub Star badge (float/fixed gore levo) ---
+st.markdown("""
+<style>
+#tonosai-star {
+  position: fixed;
+  top: 12px; left: 12px;
+  z-index: 1000;
+}
+</style>
+<div id="tonosai-star">
+  <a href="https://github.com/jazzienmonk369/TONOSAI" target="_blank" title="Star TONOSAI on GitHub">
+    <img src="https://img.shields.io/github/stars/jazzienmonk369/TONOSAI?label=Star%20repo&style=social" />
+  </a>
+</div>
+""", unsafe_allow_html=True)
+
 st.title("🎛️ TONOSAI Studio")
 st.caption("Eksperimentalni audio-vizuelni alati. Izaberi modul ispod.")
 
