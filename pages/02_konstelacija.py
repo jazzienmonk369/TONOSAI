@@ -1,3 +1,14 @@
+import streamlit as st
+import boot  # naš globalni CSS
+
+try:
+    from pyvis.network import Network
+    HAVE_PYVIS = True
+except Exception as e:
+    HAVE_PYVIS = False
+    st.error("PyVis nije instaliran. Dodaj `pyvis` u requirements.txt i redeploy.")
+    st.stop()
+
 import random
 import streamlit as st
 from pyvis.network import Network
