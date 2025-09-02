@@ -1,36 +1,33 @@
-import streamlit as st
-import boot
-
-
-st.set_page_config(
-    page_title="TONOSAI — Zvezde",         # slobodno menjaj naslov po stranici
-    page_icon="static/favicon.png",
-    layout="wide"
-)
-from lib.ui import header_badges, footer
-
-header_badges()
-
-
 # pages/06_guardian.py — TONOSAI | Igra: Čuvar konstelacije
 import streamlit as st
 import streamlit.components.v1 as components
+from lib.ui import header_badges, footer
+import boot  # globalni stilovi
 
 st.set_page_config(page_title="TONOSAI | Čuvar konstelacije", page_icon="✨", layout="wide")
+header_badges()
 
 # ---- Sidebar: podešavanja ----
 with st.sidebar:
     st.subheader("✨ Čuvar konstelacije — podešavanja")
+
     scale_mode = st.selectbox(
         "Skala zvezda",
-        ["Triada C (1–5/4–3/2)", "Pentatonika C", "Dorska (D Dorian)"],
+        ["Triada C (1–5/4–3/2)", "Pentatonika C", "Dorska (D Dorian)", "Solfeggio (432/528/639 Hz)"],
         index=1,
     )
-    base_ref = st.slider("Ref. frekvencija C (Hz)", 220, 640, 528, 1)
+
+    base_ref = st.slider("Ref. frekvencija C (Hz)", 220, 640, 528, 1,
+                         help="Koristi se za sve skale osim Solfeggio.")
+
     speed    = st.slider("Brzina igrača", 2, 12, 6)
     density  = st.slider("Gustina zvezda (manje=više)", 5, 60, 15)
-    master   = st.slider("Glasnoća", 0.0, 1.0, 0.6, 0.01)
+    master   = st.slider("Glasnoća", 0.0, 1.0, 0.60, 0.01)
     canvas_h = st.slider("Visina platna (px)", 300, 900, 520, 10)
+
+    st.markdown("---")
+    focus_mode = st.toggle("🧠 Fokus mode", False,
+                           help="Diskretniji zvuk i tamniji puls – za duboki rad.")
 
     st.markdown("---")
     breath_on   = st.toggle("Healing HUD — Dah ON", True)
@@ -45,7 +42,11 @@ def ratios_for(name: str):
     if "Dorska" in name:      return [1.0, 9/8, 6/5, 4/3, 3/2, 8/5, 9/5]
     return [1.0, 5/4, 3/2]  # triada
 
-scale_hz = [round(base_ref*r, 3) for r in ratios_for(scale_mode)]
+# Skala u Hz
+if "Solfeggio" in scale_mode:
+    scale_hz = [432.0, 528.0, 639.0]
+else:
+    scale_hz = [round(base_ref*r, 3) for r in ratios_for(scale_mode)]
 
 # Breath pattern u sekundama (ciklusi)
 if "4–7–8" in breath_mode:
@@ -53,6 +54,10 @@ if "4–7–8" in breath_mode:
 else:
     breath_segments = [4, 4, 4, 4]
 breath_segments = [round(x*sec_per_cnt, 3) for x in breath_segments]
+
+# Fokus mod – blago stišavanje i tamniji puls neba
+focus_gain = 0.8 if focus_mode else 1.0
+focus_sky  = 0.85 if focus_mode else 1.0   # multiplikator alfa pulsa
 
 html = f"""
 <div id="wrap" style="position:relative;width:100%;max-width:1200px;margin:0 auto;">
@@ -85,11 +90,12 @@ html = f"""
   const scaleHz   = {scale_hz};
   const speed     = {speed};
   const density   = {density};
-  const masterV   = {master};
+  const masterV   = ({master}) * ({focus_gain});
   const H         = {canvas_h};
   const breathOn  = {str(breath_on).lower()};
   const breathSeg = {breath_segments};
   const bossEvery = {boss_every_s} * 1000;
+  const focusSky  = {focus_sky};
 
   // Canvas
   const cvs = document.getElementById('game');
@@ -173,7 +179,7 @@ html = f"""
   let lastToneTime = 0;
 
   // Starburst prstenovi
-  const rings = []; // {{x,y,r,alpha,dr}}
+  const rings = [];
   function spawnRings(x,y,count=4){{
     for(let i=0;i<count;i++) rings.push({{x:x, y:y, r:6+i*6, alpha:0.8, dr:1.8+i*0.2}});
   }}
@@ -226,6 +232,9 @@ html = f"""
     let glow = 0.15;
     if(idx===0) glow = 0.25 + 0.25*prog;      // udah
     else if(idx===2) glow = 0.25 + 0.25*(1-prog); // izdah
+    // fokus režim: tamniji puls
+    glow *= focusSky;
+
     breathLabel.textContent = phase;
 
     const w=breathRing.width, h=breathRing.height;
@@ -331,8 +340,8 @@ html = f"""
     // healing puls neba
     let baseGlow = 0.0;
     if (breathOn) baseGlow = drawBreathHUD(performance.now());
-    const skyAlpha = 0.12 + baseGlow*0.2;
-    ctx.fillStyle = 'rgba(255,255,255,' + skyAlpha.toFixed(3) + ')';
+    const skyAlpha = (0.12 + baseGlow*0.2);
+    ctx.fillStyle = 'rgba(255,255,255,' + (skyAlpha.toFixed(3)) + ')';
     ctx.fillRect(0,0,w,H);
 
     // zvezde
@@ -368,4 +377,3 @@ html = f"""
 st.title("✨ TONOSAI — Čuvar konstelacije")
 components.html(html, height=canvas_h + 8, scrolling=False)
 footer()
-
