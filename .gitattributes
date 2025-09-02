@@ -1,7 +1,17 @@
-* text=auto
+# Uvek normalizuj na LF u repou i checkout kao LF na svim platformama
+* text=auto eol=lf
+
+# Tekstualni formati eksplicitno
 *.py  text eol=lf
-*.js  text eol=lf
+*.md  text eol=lf
+*.html text eol=lf
 *.css text eol=lf
+*.js  text eol=lf
+
+# Binarni fajlovi - bez konverzije
 *.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
 *.ogg binary
 *.wav binary

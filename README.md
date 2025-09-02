@@ -36,6 +36,9 @@ Eksperimentalni **AI audio-vizuelni sandbox** za zvuk, skale, konstelacije i min
 
 **Guardian**  
 ![Guardian demo](docs/demo_guardian.gif)
+### Zvučni balans (mini demo)
+![Zvučni balans](docs/gifs/zvucni_balans.gif)
+
 
 
 

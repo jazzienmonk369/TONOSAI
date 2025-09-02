@@ -141,6 +141,6 @@ if generate:
         preview = [f"{key_name} {scale_name} – f={f:.1f}Hz, d={d:.2f}s" for f, d in notes[:12]]
         st.write("\n".join(preview))
 
-st.page_link("app.py", label="← Vrati se na početni meni")
+st.page_link("vizija_tonosai.py", label="← Vrati se na početni meni")
 footer()
 

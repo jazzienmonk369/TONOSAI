@@ -146,5 +146,5 @@ components.html(f"""
 </script>
 """, height=260)
 
-st.page_link("app.py", label="← Home")
+st.page_link("vizija_tonosai.py", label="← Home")
 footer()
