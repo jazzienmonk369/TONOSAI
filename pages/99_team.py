@@ -1,39 +1,46 @@
+# pages/99_team.py — TONOSAI · Tim
 import streamlit as st
+from lib.ui import header_badges, footer
 import boot
 
-
-st.set_page_config(
-    page_title="TONOSAI — Zvezde",         # slobodno menjaj naslov po stranici
-    page_icon="static/favicon.png",
-    layout="wide"
-)
-from lib.ui import header_badges, footer
-
+st.set_page_config(page_title="TONOSAI — Tim", page_icon="🪐", layout="wide")
 header_badges()
+st.title("🪐 TONOSAI Kosmički Tim")
 
+members = [
+    {
+        "name":"Cosma",
+        "role":"Umetnica algoritama",
+        "bio":"Oblikuje svetove zvukom, kodom i nežnim pogonom ka harmoniji.",
+        "avatar":"/static/images/team/cosma.png",
+        "links":{"GitHub":"https://github.com/...", "SoundCloud":"https://soundcloud.com/..."}
+    },
+    {
+        "name":"Ton",
+        "role":"Audio alhemičar",
+        "bio":"Spaja field-recording sa solfeggio i binaural modulacijama.",
+        "avatar":"/static/images/team/ton.png",
+        "links":{"GitHub":"https://github.com/..."}
+    },
+]
 
-import streamlit as st
+names = [m["name"] for m in members]
+pick  = st.selectbox("Izaberi člana tima", names)
+m = next(x for x in members if x["name"]==pick)
 
-# 🌌 Stranica i stil
-st.set_page_config(page_title="TONOSAI | Kosmički Tim", page_icon="🌌", layout="centered")
+colA, colB = st.columns([1,2])
+with colA:
+    st.image(m["avatar"], width=180)
+with colB:
+    st.subheader(m["name"])
+    st.caption(m["role"])
+    st.write(m["bio"])
+    for label, url in m["links"].items():
+        st.link_button(label, url)
 
-st.title("🌌 TONOSAI Kosmički Tim")
-
-# 🎯 Izbor člana
-clanovi = {
-    "TONOS": "🎼 Vodič frekvencija i ritma – usklađuje AI i muzičke talase.",
-    "Harmonia": "🧚 Vila harmonije – čuvarica balansa zvuka, boje i duše.",
-    "Cosma": "🌠 Umetnica algoritama – oblikuje zvučne svetove kroz kod.",
-    "Neura": "🧠 AI mozak – analizira, spaja, povezuje kosmičke podatke.",
-    "Orion": "🔭 Vizuelni posmatrač – mapira pejzaže i animira duhove prostora.",
-    "Chronos": "⏳ Čuvar vremena – sekvencira ritmove i tajminge u projektima.",
-    "Echo": "🔊 Odjek prošlih glasova – čuva uspomene, arhive i snimke."
-}
-
-izbor = st.selectbox("🪐 Izaberi člana tima:", ["—"] + list(clanovi.keys()))
-
-if izbor and izbor != "—":
-    st.markdown(f"## {izbor}")
-    st.success(clanovi[izbor])
-    footer()
-
+st.divider()
+st.subheader("Pridruži se ⭐")
+st.write("Voliš zvuk, AI i nežno UI? Otvori issue/ideju ili pingni nas emailom.")
+st.link_button("📬 Predloži ideju", "https://github.com/jazzienmonk369/TONOSAI/issues/new")
+st.link_button("🤝 Otvorene uloge", "https://github.com/jazzienmonk369/TONOSAI/discussions")
+footer()
