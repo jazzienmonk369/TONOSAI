@@ -1,46 +1,112 @@
-# pages/99_team.py — TONOSAI · Tim
+# pages/99_team.py
 import streamlit as st
-from lib.ui import header_badges, footer
-import boot
+from pathlib import Path
 
-st.set_page_config(page_title="TONOSAI — Tim", page_icon="🪐", layout="wide")
-header_badges()
+st.set_page_config(page_title="TONOSAI — Tim", page_icon="👩‍🚀", layout="centered")
 st.title("🪐 TONOSAI Kosmički Tim")
 
-members = [
-    {
-        "name":"Cosma",
-        "role":"Umetnica algoritama",
-        "bio":"Oblikuje svetove zvukom, kodom i nežnim pogonom ka harmoniji.",
-        "avatar":"/static/images/team/cosma.png",
-        "links":{"GitHub":"https://github.com/...", "SoundCloud":"https://soundcloud.com/..."}
-    },
-    {
-        "name":"Ton",
-        "role":"Audio alhemičar",
-        "bio":"Spaja field-recording sa solfeggio i binaural modulacijama.",
-        "avatar":"/static/images/team/ton.png",
-        "links":{"GitHub":"https://github.com/..."}
-    },
-]
+# --- CSS (značkice/karte) ---
+st.markdown("""
+<style>
+.badges { display:flex; gap:8px; margin:4px 0 14px 0; }
+.badge  { padding:4px 8px; font-size:12px; border-radius:999px;
+          background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.16);
+          backdrop-filter: blur(4px);
+          box-shadow: 0 0 0 1px rgba(255,255,255,.02), 0 0 10px rgba(96,165,250,.10); }
 
-names = [m["name"] for m in members]
-pick  = st.selectbox("Izaberi člana tima", names)
-m = next(x for x in members if x["name"]==pick)
+.card   { background: rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08);
+          border-radius:16px; padding:16px; }
+.avatar { border-radius:14px; border:1px solid rgba(255,255,255,.12); }
+.tags   { display:flex; gap:6px; flex-wrap:wrap; margin-top:8px; }
+.tag    { font-size:11px; padding:2px 8px; border-radius:999px;
+          background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); }
+</style>
+""", unsafe_allow_html=True)
 
-colA, colB = st.columns([1,2])
-with colA:
-    st.image(m["avatar"], width=180)
-with colB:
-    st.subheader(m["name"])
-    st.caption(m["role"])
-    st.write(m["bio"])
-    for label, url in m["links"].items():
-        st.link_button(label, url)
+# Bedževi: Kosmos · Zvuk · Čovek · AI
+st.markdown(
+    '<div class="badges">'
+    '<div class="badge">🌌 Kosmos</div>'
+    '<div class="badge">🎵 Zvuk</div>'
+    '<div class="badge">🧑 Čovek</div>'
+    '<div class="badge">🤖 AI</div>'
+    '</div>',
+    unsafe_allow_html=True
+)
 
-st.divider()
-st.subheader("Pridruži se ⭐")
-st.write("Voliš zvuk, AI i nežno UI? Otvori issue/ideju ili pingni nas emailom.")
-st.link_button("📬 Predloži ideju", "https://github.com/jazzienmonk369/TONOSAI/issues/new")
-st.link_button("🤝 Otvorene uloge", "https://github.com/jazzienmonk369/TONOSAI/discussions")
-footer()
+TEAM_DIR = Path("static/images/team")  # ili "static/images" ako tu držiš png-ove
+
+TEAM = {
+    "Astra":    {"img": TEAM_DIR / "astra.png",    "bio": "Čuvar konstelacija i vizuelne magije.", "tags": ["konstelacije","dizajn","svetlo"], "emoji": "✨"},
+    "Cosma":    {"img": TEAM_DIR / "cosma.png",    "bio": "Navigator zvezdanih ideja.",             "tags": ["vizija","narativ","zvezde"],     "emoji": "🛰️"},
+    "Harmonia": {"img": TEAM_DIR / "harmonia.png", "bio": "Vila koja pomaže da nađeš frekvencu.",   "tags": ["432Hz","528Hz","vođenje"],       "emoji": "🧚‍♀️"},
+}
+
+name = st.selectbox("Izaberi člana tima", list(TEAM.keys()))
+member = TEAM[name]
+img_path = member["img"]
+fallback = Path("static/images/tonosai_logo.png")  # fallback ako nema avatara
+
+st.markdown('<div class="card">', unsafe_allow_html=True)
+# Brzi linkovi ka relevantnim modulima
+LINKS = {
+    "Cosma":    [("🌠 Manifest", "pages/manifest.py"),
+                 ("🎬 Showcase", "pages/showcase.py")],
+    "Harmonia": [("🌿 Balans 2.0", "pages/balans_2_0.py"),
+                 ("🎬 Showcase", "pages/showcase.py")],
+    "Astra":    [("✨ Konstelacija", "pages/02_konstelacija.py"),
+                 ("🌠 Manifest", "pages/manifest.py")],
+}
+
+st.write("")
+st.caption("Brzi ulazi")
+cols = st.columns(len(LINKS[ name ]))
+for i, (label, target) in enumerate(LINKS[name]):
+    with cols[i]:
+        st.page_link(target, label=label)
+
+
+if img_path.exists():
+    st.image(str(img_path), width=220, caption=name)
+elif fallback.exists():
+    st.image(str(fallback), width=220, caption="(placeholder)")
+    st.warning(f"Nedostaje slika: {img_path.as_posix()}")
+else:
+    st.warning(f"Nedostaje slika: {img_path.as_posix()}")
+
+st.subheader(f"{member['emoji']} {name}")
+st.write(member["bio"])
+st.markdown('<div class="tags">' + "".join(f'<div class="tag">{t}</div>' for t in member["tags"]) + '</div>', unsafe_allow_html=True)
+
+st.markdown("</div>", unsafe_allow_html=True)
+
+
+TEAM_DIR = Path("static/images/team")
+TEAM = {
+    "Cosma":     {"img": TEAM_DIR / "cosma.png",     "bio": "Navigator zvezdanih ideja.",                 "tags": ["vizija", "narativ", "zvezde"], "emoji": "🛰️"},
+    "Harmonia":  {"img": TEAM_DIR / "harmonia.png",  "bio": "Vila koja pomaže da nađeš frekvencu.",      "tags": ["432Hz", "528Hz", "vođenje"],   "emoji": "🧚‍♀️"},
+    "Astra":     {"img": TEAM_DIR / "astra.png",     "bio": "Čuvar konstelacija i vizuelne magije.",      "tags": ["konstelacije", "dizajn", "svetlo"], "emoji": "✨"},
+}
+
+name = st.selectbox("Izaberi člana tima", list(TEAM.keys()))
+member = TEAM[name]
+img_path = member["img"]
+fallback = Path("static/images/TONOSAI_Logo.png")
+
+st.markdown('<div class="card">', unsafe_allow_html=True)
+
+# Avatar sa fallback-om
+if img_path.exists():
+    st.image(str(img_path), width=220, caption=name, output_format="PNG")
+elif fallback.exists():
+    st.image(str(fallback), width=220, caption="(placeholder)", output_format="PNG")
+    st.warning(f"Nedostaje slika: {img_path.as_posix()}")
+else:
+    st.warning(f"Nedostaje slika: {img_path.as_posix()}")
+
+# Bio + tagovi
+st.subheader(f"{member['emoji']} {name}")
+st.write(member["bio"])
+st.markdown('<div class="tags">' + "".join(f'<div class="tag">{t}</div>' for t in member["tags"]) + "</div>", unsafe_allow_html=True)
+
+st.markdown("</div>", unsafe_allow_html=True)

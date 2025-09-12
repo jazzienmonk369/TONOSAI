@@ -275,5 +275,6 @@ st.download_button(
     mime="text/html",
 )
 
-st.page_link("vizija_tonosai.py", label="← Nazad na Viziju", icon="🏠")
+st.page_link("pages/vizija_tonosai.py", label="↩ Nazad na Viziju", icon="🖋")
+
 footer()
