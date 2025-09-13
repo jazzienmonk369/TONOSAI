@@ -1,4 +1,5 @@
 import streamlit as st
+from tn_components import render_footer  # <— VAŽNO: na vrhu!
 
 st.set_page_config(page_title="Manifest", page_icon="🌠", layout="centered")
 st.title("🌠 TONOSAI Manifest")
@@ -9,7 +10,7 @@ manifest = {
     "🤖 AI (E-jaja)": "Um veštački, ali srce je tvoje; koristi ga za stvaranje.",
     "🎨 Umetnost": "Igra tišine i zvuka, boje i tame, rađa nove svetove.",
     "🔬 Nauka": "Eksperiment je iskra, mera je ogledalo, znanje je put.",
-    "🙏 Duhovnost": "Zahvalnost je melodija duše u harmoniji sa univerzumom."
+    "🙏 Duhovnost": "Zahvalnost je melodija duše u harmoniji sa univerzumom.",
 }
 
 cols = st.columns(3)
@@ -21,3 +22,5 @@ for i, col in enumerate(cols):
             if k < len(keys):
                 if st.button(keys[k]):
                     st.success(manifest[keys[k]])
+
+render_footer(active="manifest")  # <— uvek na dnu

@@ -1,6 +1,7 @@
 # pages/99_team.py
 import streamlit as st
 from pathlib import Path
+from tn_components import render_footer
 
 st.set_page_config(page_title="TONOSAI — Tim", page_icon="👩‍🚀", layout="centered")
 st.title("🪐 TONOSAI Kosmički Tim")
@@ -110,3 +111,6 @@ st.write(member["bio"])
 st.markdown('<div class="tags">' + "".join(f'<div class="tag">{t}</div>' for t in member["tags"]) + "</div>", unsafe_allow_html=True)
 
 st.markdown("</div>", unsafe_allow_html=True)
+from tn_components import render_footer
+render_footer(active="team")
+
