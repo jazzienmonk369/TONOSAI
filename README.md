@@ -1,4 +1,11 @@
 docs: add demo gifs to README
+# 🌌 TONOSAI Studio
+
+TONOSAI Studio je kosmički kreativno-tehnološki hub koji spaja:  
+**🎶 Muziku, 🌿 Prirodu, 🧑 Čoveka i 🤖 AI**.  
+
+Platforma omogućava interaktivne module za balans, improvizaciju i kosmičko iskustvo kroz zvuk i vizuelnu harmoniju.
+
 # TONOSAI Studio
 
 [![Streamlit](https://img.shields.io/badge/Live%20App-tonosai.streamlit.app-ff4b4b?logo=streamlit&logoColor=white)](https://tonosai.streamlit.app)
