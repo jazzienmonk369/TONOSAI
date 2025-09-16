@@ -3,8 +3,6 @@
 from __future__ import annotations
 from pathlib import Path
 import streamlit as st
-from lib.ui import lang_selector
-from lib.i18n import t
 import streamlit.components.v1 as components
 
 # opciono (ako postoje u tvom projektu)
@@ -20,7 +18,6 @@ except Exception:
 
 st.set_page_config(page_title="TONOSAI — Zvučni balans", page_icon="🌀", layout="wide")
 
-lang_selector("07_zvucni_balans")
 # ── Header + naslov ─────────────────────────────────────────────────────────
 header_badges()
 st.title("🌀 Zvučni balans")

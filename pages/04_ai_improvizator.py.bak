@@ -1,6 +1,4 @@
 import streamlit as st
-from lib.ui import lang_selector
-from lib.i18n import t
 import numpy as np
 import io, wave, random
 import boot
@@ -9,7 +7,6 @@ import boot
 st.set_page_config(page_title="TONOSAI — AI Improvizator",
                    page_icon="static/favicon.png",
                    layout="wide")
-lang_selector("04_ai_improvizator")
 from lib.ui import header_badges, footer
 
 header_badges()

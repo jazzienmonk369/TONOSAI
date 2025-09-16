@@ -1,12 +1,9 @@
 # pages/99_team.py
 import streamlit as st
-from lib.ui import lang_selector
-from lib.i18n import t
 from pathlib import Path
 from tn_components import render_footer
 
 st.set_page_config(page_title="TONOSAI — Tim", page_icon="👩‍🚀", layout="centered")
-lang_selector("99_team")
 st.title("🪐 TONOSAI Kosmički Tim")
 
 # --- CSS (značkice/karte) ---

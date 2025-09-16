@@ -1,5 +1,23 @@
 import streamlit as st
 import boot
+# lib/ui.py
+import streamlit as st
+from lib.i18n import t
+
+def lang_selector(page_id: str = "page"):
+    """Sidebar jezički preklopnik sa unikatnim ključem po stranici."""
+    if "lang" not in st.session_state:
+        st.session_state["lang"] = "sr"
+    key = f"lang_{page_id}"          # ← garantuje unikatan key po stranici
+    current = st.session_state["lang"]
+    choice = st.sidebar.selectbox(
+        t("ui.lang") if callable(t) else "Language / Jezik",
+        ["sr", "en"],
+        index=["sr","en"].index(current),
+        key=key
+    )
+    st.session_state["lang"] = choice
+
 
 
 REPO = "jazzienmonk369/TONOSAI"

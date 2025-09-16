@@ -3,13 +3,10 @@
 from __future__ import annotations
 import urllib.parse
 import streamlit as st
-from lib.ui import lang_selector
-from lib.i18n import t
 import streamlit.components.v1 as components
 
 st.set_page_config(page_title="TONOSAI — Donacije", page_icon="💖", layout="wide")
 
-lang_selector("03_donacije")
 st.title("💖 Donacije")
 st.caption("Hvala što podržavaš TONOSAI. Tvoje donacije održavaju studio, eksperimente i otvorene alate.")
 

@@ -1,4 +1,26 @@
 import streamlit as st
+from lib.i18n import t
+
+st.set_page_config(page_title="TONOSAI", layout="wide")
+
+# Inicijalizacija jezika
+if "lang" not in st.session_state:
+    st.session_state["lang"] = "sr"
+
+# Jezik preklopnik
+lang = st.sidebar.selectbox("Language / Jezik", ["sr", "en"],
+                            index=0 if st.session_state["lang"]=="sr" else 1)
+st.session_state["lang"] = lang
+
+st.title(t("app.title"))
+st.sidebar.markdown(f"**{t('lang.sr')} / {t('lang.en')}**")
+
+st.sidebar.page_link("pages/01_home.py", label=t("nav.home"))
+st.sidebar.page_link("pages/02_sound_balance.py", label=t("nav.sound_balance"))
+st.sidebar.page_link("pages/03_classical_retune.py", label=t("nav.classical_retune"))
+st.sidebar.page_link("pages/04_tesla_369.py", label=t("nav.tesla"))
+
+import streamlit as st
 import boot
 
 

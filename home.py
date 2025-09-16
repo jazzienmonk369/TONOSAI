@@ -1,22 +1,25 @@
 # home.py — TONOSAI Studio (clean start)
-import os, streamlit as st
-VERSION = os.getenv("TONOSAI_VERSION", "v0.1.1")
 
-st.markdown("<hr>", unsafe_allow_html=True)
-c1, c2, c3 = st.columns([1,1,1])
-with c1:
-    st.page_link("pages/manifest.py", label="🌠 Manifest")
-with c2:
-    st.page_link("pages/99_team.py", label="👩‍🚀 Tim")
-with c3:
-    st.caption(f"verzija: {VERSION}")
-
+import os, base64
 from pathlib import Path
 from datetime import date
-import base64, os
 import streamlit as st
+from lib.i18n import t
 
+# ── Config (uvek prvi Streamlit poziv)
 st.set_page_config(page_title="TONOSAI Studio", page_icon="✨", layout="wide")
+VERSION = os.getenv("TONOSAI_VERSION", "v0.1.1")
+
+# ── Jezik (jedan widget, jedinstven key)
+if "lang" not in st.session_state:
+    st.session_state["lang"] = "sr"
+lang = st.sidebar.selectbox(
+    t("ui.lang") if "ui.lang" in t.__globals__.get("_CACHE", {}).get(st.session_state["lang"], {}) else "Language / Jezik",
+    ["sr", "en"],
+    index=["sr", "en"].index(st.session_state["lang"]),
+    key="lang_home"
+)
+st.session_state["lang"] = lang
 
 # ── Kontrole (tema + ambijent)
 col_top = st.columns([2, 1, 3])
@@ -28,17 +31,14 @@ with col_top[2]:
     vol = st.slider("Jačina", 0, 100, 65, 1, disabled=not play)
 
 ACCENT = {"Deep Space": "#60a5fa", "Aurora": "#5eead4", "Amethyst": "#a78bfa"}[theme]
-VERSION = os.getenv("TONOSAI_VERSION", "v0.1.1")
 
-# ── (ostatak tvog CSS-a, zvezde/komete, hero, IMG_PATH = "static/images/TONOSAI_Logo.png", itd. ide dalje kao pre)
-
+# ── Stil / pozadina / hero
 st.markdown(f"""
 <style>
 :root {{ --accent: {ACCENT}; --bg1:#0a1328; --bg2:#081124; }}
 html, body, [data-testid="stAppViewContainer"] {{
   background: radial-gradient(1200px 800px at 22% -10%, #102048, var(--bg1) 55%, var(--bg2) 80%);
 }}
-/* twinkle stars */
 .tn-stars, .tn-stars:after {{
   content:""; position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.25;
   background:
@@ -52,7 +52,6 @@ html, body, [data-testid="stAppViewContainer"] {{
 .tn-stars:after {{ opacity:.16; filter: blur(.4px); animation-duration: 10s; }}
 @keyframes twinkle {{ from {{ transform: translateY(0px)}} to {{ transform: translateY(-2px)}} }}
 
-/* komete */
 .sky {{ position:fixed; inset:0; pointer-events:none; z-index:0; }}
 .comet {{
   position:absolute; width:140px; height:2px;
@@ -68,7 +67,7 @@ html, body, [data-testid="stAppViewContainer"] {{
   50% {{ opacity:0; transform:translate3d(-420px, 220px, 0) rotate(-15deg); }}
   100% {{ opacity:0; }}
 }}
-/* hero */
+
 .fade-in {{ animation: fade 1.0s ease-in-out both; }}
 @keyframes fade {{ from {{opacity:0; transform: translateY(6px);}} to {{opacity:1; transform:none;}} }}
 .tn-hero {{ position:relative; z-index:1; text-align:center; padding: 7vh 0 1vh 0; }}
@@ -78,14 +77,13 @@ html, body, [data-testid="stAppViewContainer"] {{
   background: linear-gradient(90deg, rgba(255,255,255,0) 0%, var(--accent) 15%, var(--accent) 85%, rgba(255,255,255,0) 100%);
   filter: drop-shadow(0 0 8px color-mix(in oklab, var(--accent) 45%, transparent));
 }}
-/* cards */
 .tn-wrap {{ position:relative; z-index:1; max-width: 900px; margin: 8px auto 28px auto; }}
 .tn-card {{ background: rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08);
            border-radius:16px; padding:18px 18px; }}
 .tn-grid {{ display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; margin-top:14px; }}
 .tn-mini {{ background: rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.08);
            border-radius:14px; padding:14px; font-size:14px; }}
-/* version badge */
+
 .ver-badge {{
   position:fixed; right:14px; bottom:10px; z-index:9999;
   padding:6px 10px; border-radius:999px; font-size:12px; opacity:.9;
@@ -102,26 +100,34 @@ html, body, [data-testid="stAppViewContainer"] {{
 <div class="ver-badge">{VERSION}</div>
 """, unsafe_allow_html=True)
 
-# ── Logo + naslov ───────────────────────────────────────────────────────────
+# ── Logo + naslov
 IMG_PATH = "static/images/TONOSAI_Logo.png"
 st.markdown('<div class="tn-hero">', unsafe_allow_html=True)
 if Path(IMG_PATH).exists():
-    st.image(IMG_PATH)  # ili st.image(IMG_PATH, use_container_width=True)
-
-st.markdown("""
-<div class="tn-title fade-in">TONOSAI Studio</div>
-<div class="tn-sub">Kosmos · Muzika · Čovek · AI</div>
-""", unsafe_allow_html=True)
-st.markdown('</div>', unsafe_allow_html=True)
+    st.image(IMG_PATH)
 st.markdown('<div class="tn-div"></div>', unsafe_allow_html=True)
 
-# ── Audio ambijent (base64 u <audio>) ───────────────────────────────────────
+# ── About (i18n)
+st.markdown('<div class="tn-wrap">', unsafe_allow_html=True)
+st.markdown(f"""
+<div class="tn-card">
+  <h4>{t("home.about.title")}</h4>
+  {t("home.about.lead")}
+  <div class="tn-grid">
+    <div class="tn-mini">{t("home.about.badge.tones")}</div>
+    <div class="tn-mini">{t("home.about.badge.stars")}</div>
+    <div class="tn-mini">{t("home.about.badge.ai")}</div>
+  </div>
+</div>
+""", unsafe_allow_html=True)
+st.markdown('</div>', unsafe_allow_html=True)
+
+# ── Ambijentalni audio
 def audio_src_b64():
     primary  = Path("static/audio/ecosystem_formula_loop.ogg")
     fallback = Path("static/audio/ambient_loop.ogg")
     pick = primary if primary.exists() else (fallback if fallback.exists() else None)
-    if not pick:
-        return (None, None)
+    if not pick: return (None, None)
     mime = "audio/ogg" if pick.suffix.lower()==".ogg" else ("audio/mpeg" if pick.suffix.lower()==".mp3" else "audio/wav")
     b64 = base64.b64encode(pick.read_bytes()).decode("ascii")
     return (f"data:{mime};base64,{b64}", mime)
@@ -129,7 +135,7 @@ def audio_src_b64():
 if play:
     src, mime = audio_src_b64()
     if not src:
-        st.error("Dodaj **static/audio/ecosystem_formula_loop.ogg** (ili `ambient_loop.ogg`).")
+        st.error("Dodaj static/audio/ecosystem_formula_loop.ogg (ili ambient_loop.ogg).")
     else:
         st.components.v1.html(f"""
         <div style="max-width:900px; margin:12px auto 0 auto;">
@@ -137,41 +143,16 @@ if play:
             <source src="{src}" type="{mime}">
           </audio>
         </div>
-        <script>
-          try {{
-            const a = document.getElementById('amb');
-            a.volume = {vol/100};
-          }} catch (e) {{}}
-        </script>
+        <script>try{{document.getElementById('amb').volume={vol/100};}}catch(e){{}}</script>
         """, height=64)
 
-# ── About kartica ───────────────────────────────────────────────────────────
-with st.container():
-    st.markdown('<div class="tn-wrap">', unsafe_allow_html=True)
-    st.markdown("""
-    <div class="tn-card">
-      <h4>✨ O TONOSAI</h4>
-      TONOSAI je malo igralište gde se spajaju <b>zvuk</b>, <b>kosmos</b> i <b>AI</b>.
-      Moduli su u levom meniju — ovo je ulaz u atmosferu.
-      <div class="tn-grid">
-        <div class="tn-mini">🎵 432 / 528 / 639 Hz · pulse · binaural</div>
-        <div class="tn-mini">⭐ interaktivne zvezde i konstelacije</div>
-        <div class="tn-mini">🧠 AI improvizacije & ideje</div>
-      </div>
-    </div>
-    """, unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
-
-# ── Brzi linkovi ────────────────────────────────────────────────────────────
+# ── Brzi linkovi
 c1, c2, c3 = st.columns(3)
-with c1:
-    st.page_link("pages/manifest.py", label="🌠 Manifest")
-with c2:
-    st.page_link("pages/showcase.py", label="🎬 Showcase")
-with c3:
-    st.page_link("pages/balans_2_0.py", label="🌿 Balans 2.0")
+with c1: st.page_link("pages/manifest.py", label=t("home.links.manifest"))
+with c2: st.page_link("pages/showcase.py", label=t("home.links.showcase"))
+with c3: st.page_link("pages/balans_2_0.py", label=t("home.links.balans20"))
 
-# ── Poruka dana ─────────────────────────────────────────────────────────────
+# ── Poruka dana
 MOTD = [
     "Sve je vibracija — uskladi ton i put se otvara.",
     "Tišina zna — pusti je da zapeva prva.",
@@ -179,5 +160,4 @@ MOTD = [
     "Ritam daha je metronom duše.",
     "Harmonija je most između ideje i dela.",
 ]
-idx = date.today().toordinal() % len(MOTD)
-st.caption(MOTD[idx])
+st.caption(MOTD[date.today().toordinal() % len(MOTD)])

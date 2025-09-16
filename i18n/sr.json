@@ -1,0 +1,31 @@
+{
+  "app.title": "TONOSAI Studio",
+
+  "ui.lang": "Language / Jezik",
+  "ui.volume": "Glasnoća",
+  "ui.play": "Pusti",
+  "ui.stop": "Stop",
+  "ui.fade_in": "Fade in",
+  "ui.fade_out": "Fade out",
+
+  "nav.home": "Početna",
+  "nav.stars": "Zvezde",
+  "nav.konstelacija": "Konstelacija",
+  "nav.sound_balance": "Zvučni balans",
+  "nav.classical_retune": "Klasična muzika (retune)",
+  "nav.tesla": "Tesla 3–6–9",
+
+  "msg.librosa_missing": "Napomena: napredne DSP opcije su isključene jer 'librosa' nije instalirana.",
+
+  "home.about.title": "✨ O TONOSAI",
+  "home.about.lead": "TONOSAI je malo igralište gde se spajaju Kosmos, Zvuk, Čovek i AI!",
+  "home.about.badge.tones": "🎵 432 / 528 / 639 Hz · pulse · binaural",
+  "home.about.badge.stars": "⭐ interaktivne zvezde i konstelacije",
+  "home.about.badge.ai": "🧠 AI improvizacije i ideje",
+  "home.links.manifest": "🌠 Manifest",
+  "home.links.showcase": "🎬 Showcase",
+  "home.links.balans20": "🌿 Balans 2.0",
+
+  "vision.title": "Vizija TONOSAI",
+  "vision.lead": "Naša vizija je da zbližimo Kosmos, Zvuk, Čoveka i AI kroz igru i praksu."
+}

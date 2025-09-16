@@ -1,10 +1,7 @@
 import streamlit as st
-from lib.ui import lang_selector
-from lib.i18n import t
 from tn_components import render_footer  # <— VAŽNO: na vrhu!
 
 st.set_page_config(page_title="Manifest", page_icon="🌠", layout="centered")
-lang_selector("manifest")
 st.title("🌠 TONOSAI Manifest")
 
 manifest = {

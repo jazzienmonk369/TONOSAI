@@ -1,13 +1,10 @@
 # pages/06_guardian.py — TONOSAI | Igra: Čuvar konstelacije
 import streamlit as st
-from lib.ui import lang_selector
-from lib.i18n import t
 import streamlit.components.v1 as components
 from lib.ui import header_badges, footer
 import boot  # globalni stilovi
 
 st.set_page_config(page_title="TONOSAI | Čuvar konstelacije", page_icon="✨", layout="wide")
-lang_selector("06_guardian")
 header_badges()
 
 # ---- Sidebar: podešavanja ----

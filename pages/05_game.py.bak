@@ -1,6 +1,4 @@
 import streamlit as st
-from lib.ui import lang_selector
-from lib.i18n import t
 import boot
 
 
@@ -9,7 +7,6 @@ st.set_page_config(
     page_icon="static/favicon.png",
     layout="wide"
 )
-lang_selector("05_game")
 from lib.ui import header_badges, footer
 
 header_badges()

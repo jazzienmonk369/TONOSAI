@@ -2,8 +2,6 @@ from __future__ import annotations
 
 import os, json, random, hashlib, colorsys
 import streamlit as st
-from lib.ui import lang_selector
-from lib.i18n import t
 import streamlit.components.v1 as components
 
 # Opcioni UI helpers
@@ -25,7 +23,6 @@ GITHUB_TOKEN = get_secret("GITHUB_TOKEN")
 
 st.set_page_config(page_title="TONOSAI — Konstelacije", page_icon="🌌", layout="wide")
 
-lang_selector("02_konstelacija")
 # PyVis (uz fallback)
 try:
     from pyvis.network import Network

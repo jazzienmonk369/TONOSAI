@@ -1,0 +1,41 @@
+from lib.ui import lang_selector
+lang_selector("02_sound_balance")
+from pathlib import Path
+AUDIO_DIR = Path("static/audio/ambients")
+AUDIO_DIR.mkdir(parents=True, exist_ok=True)
+
+files = [f for f in AUDIO_DIR.iterdir() if f.suffix.lower() in (".wav",".ogg",".mp3")]
+if not files:
+    st.warning("Ubaci fajlove u **static/audio/ambients/** (WAV/OGG/MP3) pa osveži stranicu.")
+
+import os, streamlit as st
+from lib.i18n import t
+
+AUDIO_DIR = "static/audio/ambients"
+st.header(t("nav.sound_balance"))
+
+# optional import
+try:
+    import numpy as np, soundfile as sf, librosa
+    HAVE_LIBROSA = True
+except Exception:
+    HAVE_LIBROSA = False
+    st.info(t("msg.librosa_missing"))
+
+files = [f for f in os.listdir(AUDIO_DIR) if f.lower().endswith((".wav",".ogg",".mp3"))]
+choice = st.selectbox("Ambient", files) if files else None
+vol = st.slider(t("ui.volume"), 0.0, 1.5, 1.0, 0.05)
+
+if choice:
+    path = os.path.join(AUDIO_DIR, choice)
+    if HAVE_LIBROSA and path.lower().endswith(".wav"):
+        # primer: samo lagani gain + export u memoriji
+        y, sr = librosa.load(path, sr=None, mono=True)
+        y = y * vol
+        import io
+        buf = io.BytesIO()
+        sf.write(buf, y, sr, format="WAV"); buf.seek(0)
+        st.audio(buf)
+    else:
+        # fallback: bez DSP (browser kontroliše jačinu)
+        st.audio(path)

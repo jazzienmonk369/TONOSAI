@@ -1,0 +1,31 @@
+{
+  "app.title": "TONOSAI Studio",
+
+  "ui.lang": "Language / Jezik",
+  "ui.volume": "Volume",
+  "ui.play": "Play",
+  "ui.stop": "Stop",
+  "ui.fade_in": "Fade in",
+  "ui.fade_out": "Fade out",
+
+  "nav.home": "Home",
+  "nav.stars": "Stars",
+  "nav.konstelacija": "Constellation",
+  "nav.sound_balance": "Sound Balance",
+  "nav.classical_retune": "Classical (Retune)",
+  "nav.tesla": "Tesla 3–6–9",
+
+  "msg.librosa_missing": "Note: advanced DSP features are disabled because 'librosa' is not installed.",
+
+  "home.about.title": "✨ ABOUT TONOSAI",
+  "home.about.lead": "TONOSAI is a small playground where the Cosmos, Sound, the Human, and AI meet!",
+  "home.about.badge.tones": "🎵 432 / 528 / 639 Hz · pulse · binaural",
+  "home.about.badge.stars": "⭐ interactive stars & constellations",
+  "home.about.badge.ai": "🧠 AI improvisations & ideas",
+  "home.links.manifest": "🌠 Manifest",
+  "home.links.showcase": "🎬 Showcase",
+  "home.links.balans20": "🌿 Balance 2.0",
+
+  "vision.title": "TONOSAI Vision",
+  "vision.lead": "Our vision is to bring the Cosmos, Sound, the Human, and AI closer through play and practice."
+}

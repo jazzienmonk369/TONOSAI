@@ -1,12 +1,9 @@
 import json
 from pathlib import Path
 import streamlit as st
-from lib.ui import lang_selector
-from lib.i18n import t
 from tn_components import render_footer  # <— na vrhu!
 
 st.set_page_config(page_title="Balans 2.0", page_icon="🌿", layout="centered")
-lang_selector("balans_2_0")
 st.title("🌿 TONOSAI Balans 2.0")
 
 # inicijalizuj ključeve da preseti ne pucaju

@@ -2,12 +2,9 @@
 import os
 from pathlib import Path
 import streamlit as st
-from lib.ui import lang_selector
-from lib.i18n import t
 from tn_components import render_footer  # footer links + verzija
 
 st.set_page_config(page_title="Showcase — TONOSAI", page_icon="🎬", layout="wide")
-lang_selector("showcase")
 st.title("🎬 TONOSAI Showcase")
 st.caption("Kratka kosmička izložba: Manifest → Balans 2.0")
 

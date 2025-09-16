@@ -1,0 +1,57 @@
+# pages/04_tesla_369.py
+import numpy as np
+lang_selector("04_tesla_369")
+import streamlit as st
+from lib.ui import lang_selector
+from lib.i18n import t
+from lib.audio import wav_bytes_pcm16  # čist WAV helper (bez soundfile)
+
+st.header(t("nav.tesla"))
+
+def tone(f, dur=0.2, sr=44100):
+    t = np.linspace(0, dur, int(sr*dur), endpoint=False)
+    return np.sin(2*np.pi*f*t) * np.hanning(len(t))
+
+tab1, tab2, tab3 = st.tabs(["369 Breathing", "Coil Pulse", "Wardenclyffe Bath"])
+
+# 1) 369 Breathing
+with tab1:
+    bpm = st.slider("Tempo (BPM)", 30, 90, 48, 1)
+    sr = 44100
+    clicks = 8
+    sec = 60.0 / bpm
+    y = np.zeros(int(sr * sec * clicks), dtype=np.float32)
+    pl = tone(880, 0.04, sr) * 0.4
+    for i in range(clicks):
+        t0 = int((i * sec) * sr)
+        end = min(t0 + len(pl), len(y))
+        if end > t0:
+            y[t0:end] += pl[: end - t0]
+    st.audio(wav_bytes_pcm16(y, sr))
+
+# 2) Coil Pulse
+with tab2:
+    hz = st.slider("Base Hz", 2, 20, 8, 1)  # isokroni impulsi
+    dur = 12
+    sr = 44100
+    y = np.zeros(int(sr * dur), dtype=np.float32)
+    period = int(sr * (1.0 / hz))
+    pl = tone(440, 0.03, sr) * 0.5
+    for i in range(0, len(y), period):
+        end = min(i + len(pl), len(y))
+        if end > i:
+            y[i:end] += pl[: end - i]
+    y = y / max(1e-9, float(np.max(np.abs(y))))
+    st.audio(wav_bytes_pcm16(y, sr))
+
+# 3) Wardenclyffe Bath
+with tab3:
+    layers = st.multiselect("Layers (Hz)", [144, 216, 288, 432, 528], default=[144, 432])
+    dur = st.slider("Duration (s)", 5, 60, 20, 5)
+    sr = 44100
+    t = np.linspace(0, dur, int(sr * dur), endpoint=False)
+    y = np.zeros_like(t, dtype=np.float32)
+    for f in layers:
+        y += np.sin(2 * np.pi * f * t, dtype=np.float32)
+    y = (y / max(1.0, float(np.max(np.abs(y))))) * 0.3
+    st.audio(wav_bytes_pcm16(y, sr))
