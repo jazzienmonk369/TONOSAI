@@ -22,3 +22,15 @@ build/
 
 # Sound cache (ako koristiš neko generisanje)
 *.wav.cache
+# Python
+__pycache__/
+*.pyc
+
+# Audio
+static/audio/ambients/*
+!static/audio/ambients/.gitkeep
+
+# Local envs / OS
+.venv/
+.env
+.DS_Store
